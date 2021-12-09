@@ -7,6 +7,16 @@ import javafx.scene.control.Label;
 
 public class TicTacToeController {
 
+    private GameState gameState;
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
     @FXML
     private Button topleft;
     @FXML
