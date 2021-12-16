@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="900.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.kognitywistyka.ppa.tictactoe.MainController">
+   <children>
+      <AnchorPane prefHeight="100.0" prefWidth="600.0">
+         <children>
+            <Button layoutX="80.0" layoutY="31.0" mnemonicParsing="false" onAction="#showGame" prefHeight="40.0" prefWidth="150.0" text="Game">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="370.0" layoutY="31.0" mnemonicParsing="false" onAction="#showStats" prefHeight="40.0" prefWidth="150.0" text="Statistics">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="contents" layoutY="100.0" prefHeight="800.0" prefWidth="600.0" />
+   </children>
+</AnchorPane>

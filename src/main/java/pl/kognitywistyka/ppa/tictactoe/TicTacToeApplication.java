@@ -13,9 +13,9 @@ public class TicTacToeApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TicTacToeApplication.class.getResource("board.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 800);
-        TicTacToeController controller = fxmlLoader.getController();
+        FXMLLoader fxmlLoader = new FXMLLoader(TicTacToeApplication.class.getResource("main.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 900);
+        MainController controller = fxmlLoader.getController();
         controller.setGameState(gameState);
         stage.setTitle("Let's play Tic Tac Toe");
         stage.setScene(scene);

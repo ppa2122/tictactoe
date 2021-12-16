@@ -158,13 +158,13 @@ public class GameState {
     }
 
     public boolean isLegalMove(int x, int y) {
-        return matrix[x][y] == null;
+        return (stage == GameStage.START || stage == GameStage.PLAYING) && matrix[x][y] == null;
     }
 
     public void makeAMove(int x, int y) {
         if (isLegalMove(x, y)) {
             matrix[x][y] = whoseTurn;
-            whoseTurn = (whoseTurn == TicOrTac.CIRCLE) ? TicOrTac.CIRCLE : TicOrTac.CROSS;
+            whoseTurn = (whoseTurn == TicOrTac.CIRCLE) ? TicOrTac.CROSS : TicOrTac.CIRCLE;
             determineIfSomeoneWins();
         } else {
             throw new IllegalArgumentException("Illegal move: x = " + x + ", y = " + y);
