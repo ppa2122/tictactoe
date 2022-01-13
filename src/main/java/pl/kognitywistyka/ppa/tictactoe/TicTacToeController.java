@@ -13,16 +13,21 @@ import javafx.scene.control.Label;
 import pl.kognitywistyka.ppa.tictactoe.GameState.GameStage;
 import pl.kognitywistyka.ppa.tictactoe.GameState.TicOrTac;
 
-public class TicTacToeController implements Initializable, GameStateHolder {
+public class TicTacToeController implements Initializable, MainStateHolder {
 
-    private GameState gameState;
-    public GameState getGameState() {
-        return gameState;
+    private MainState mainState;
+    public MainState getMainState() {
+        return mainState;
+    }
+    private boolean gameAlreadyReported = false;
+
+    public void setMainState(MainState mainState) {
+        this.mainState = mainState;
+        restartGame(null);
     }
 
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
-        restartGame(null);
+    private GameState getGameState() {
+        return mainState.getCurrentState();
     }
 
     @FXML
@@ -62,14 +67,14 @@ public class TicTacToeController implements Initializable, GameStateHolder {
     }
 
     private void updateGameInfo() {
-        GameStage stage = gameState.getStage();
+        GameStage stage = getGameState().getStage();
         String label = "";
         switch (stage) {
             case START:
                 label = "Click to start the game as X";
                 break;
             case PLAYING:
-                TicOrTac who = gameState.getWhoseTurn();
+                TicOrTac who = getGameState().getWhoseTurn();
                 label = who.getRep() + " to move";
                 break;
             case CROSS_WINS:
@@ -82,21 +87,37 @@ public class TicTacToeController implements Initializable, GameStateHolder {
                 label = "Game over, it is a tie!";
                 break;
         }
+        if ((stage == GameStage.CROSS_WINS || stage == GameStage.CIRCLE_WINS || stage == GameStage.TIE) && !gameAlreadyReported) {
+            gameAlreadyReported = true;
+            reportGameResult(getMainState().getStatistics(), stage);
+        }
         gameInfo.setText(label);
+
+    }
+
+    private void reportGameResult(Statistics statistics, GameStage stage) {
+        if (stage == GameStage.CROSS_WINS) {
+            statistics.setCrossWins(statistics.getCrossWins() + 1);
+        } else if (stage == GameStage.CIRCLE_WINS) {
+            statistics.setCircleWins(statistics.getCircleWins() + 1);
+        } else if (stage == GameStage.TIE) {
+            statistics.setDraws(statistics.getDraws() + 1);
+        }
     }
 
     public void fieldClicked(ActionEvent event) {
         Button button = (Button) event.getSource();
         int[] coords = mapToCoordinates.get(button);
-        if (gameState.isLegalMove(coords[0], coords[1])) {
-            gameState.makeAMove(coords[0], coords[1]);
-            button.setText(gameState.getField(coords[0], coords[1]).getRep());
+        if (getGameState().isLegalMove(coords[0], coords[1])) {
+            getGameState().makeAMove(coords[0], coords[1]);
+            button.setText(getGameState().getField(coords[0], coords[1]).getRep());
         }
         updateGameInfo();
     }
 
     public void restartGame(ActionEvent actionEvent) {
-        gameState.reset();
+        getGameState().reset();
+        gameAlreadyReported = false;
         clearButtons();
         updateGameInfo();
     }

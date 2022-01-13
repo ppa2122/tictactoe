@@ -16,7 +16,7 @@ public class MainController {
     @FXML
     private AnchorPane contents;
 
-    private GameState gameState;
+    private MainState mainState;
 
     public void showStats(ActionEvent actionEvent) {
         loadAsMainContent("statistics.fxml");
@@ -30,8 +30,8 @@ public class MainController {
         FXMLLoader fxmlLoader = new FXMLLoader(TicTacToeApplication.class.getResource(name));
         try {
             Pane root = fxmlLoader.load();
-            GameStateHolder controller = fxmlLoader.getController();
-            controller.setGameState(gameState);
+            MainStateHolder controller = fxmlLoader.getController();
+            controller.setMainState(mainState);
             contents.getChildren().clear();
             contents.getChildren().add(root);
         } catch (IOException e) {
@@ -39,12 +39,12 @@ public class MainController {
         }
     }
 
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
+    public void setMainState(MainState mainState) {
+        this.mainState = mainState;
         showGame(null);
     }
 
-    public GameState getGameState() {
-        return gameState;
+    public MainState getGameState() {
+        return mainState;
     }
 }

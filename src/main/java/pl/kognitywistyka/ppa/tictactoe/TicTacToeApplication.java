@@ -9,14 +9,14 @@ import java.io.IOException;
 
 public class TicTacToeApplication extends Application {
 
-    private GameState gameState = new GameState();
+    private MainState mainState = new MainState();
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TicTacToeApplication.class.getResource("main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 900);
         MainController controller = fxmlLoader.getController();
-        controller.setGameState(gameState);
+        controller.setMainState(mainState);
         stage.setTitle("Let's play Tic Tac Toe");
         stage.setScene(scene);
         stage.show();
